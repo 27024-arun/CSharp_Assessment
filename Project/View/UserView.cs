@@ -11,6 +11,10 @@ namespace ToDoApplication.View
             this._userServices = userServices;
             this._taskView = taskView;
         }
+
+        /// <summary>
+        /// SignUp Menu used to showcase the menu for signup options.
+        /// </summary>
         internal void SignUp()
         {
             Console.Clear();
@@ -40,6 +44,9 @@ namespace ToDoApplication.View
             }
         }
 
+        /// <summary>
+        /// LogIn Menu used to showcase the menu for login options.
+        /// </summary>
         internal void LogIn()
         {
             Console.Clear();

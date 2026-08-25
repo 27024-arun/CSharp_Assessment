@@ -4,9 +4,15 @@ using ToDoApplication.View;
 
 namespace ToDoApplication
 {
+    /// <summary>
+    /// Program is the entry level class.
+    /// </summary>
     internal class Program
     {
-        public static void Main(string[] args)
+        /// <summary>
+        /// Main method is the entry point of the program.
+        /// </summary>
+        public static void Main()
         {
             TaskRepository taskRepository = new TaskRepository("Tasks.json");
             UserRepository userRepository = new UserRepository("Users.json");

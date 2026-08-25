@@ -14,11 +14,18 @@ namespace ToDoApplication.View
             this._currentUser = new User();
         }
 
+        /// <summary>
+        /// Assigns the data of the user.
+        /// </summary>
+        /// <param name="user">Current user</param>
         public void AssignCurrentUser(User user)
         {
             this._currentUser = user;
         }
 
+        /// <summary>
+        /// Prints the current user name.
+        /// </summary>
         public void PrintCurrentUser()
         {
             string currentUser = $@"

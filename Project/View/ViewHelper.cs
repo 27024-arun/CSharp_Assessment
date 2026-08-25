@@ -2,6 +2,11 @@
 {
     internal class ViewHelper
     {
+        /// <summary>
+        /// WriteColored method is used to display message in console in colored format.
+        /// </summary>
+        /// <param name="message">Message that wants to be displayed.</param>
+        /// <param name="color">Color in which the message wants to be displayed.</param>
         public static void WriteColored(string message, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -9,6 +14,10 @@
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// Used to retrieve description from the user.
+        /// </summary>
+        /// <returns>Description</returns>
         internal static string? GetDescription()
         {
             int maxTries = 3;
@@ -29,6 +38,11 @@
             return null;
         }
 
+        /// <summary>
+        /// Used to retrieve recurrence-type from the user.
+        /// </summary>
+        /// <param name="typeLength"></param>
+        /// <returns>RecurrenceType</returns>
         internal static int GetRecurrenceType(int typeLength)
         {
             int maxTries = 3;
@@ -50,6 +64,11 @@
             return 0;
         }
 
+        /// <summary>
+        /// Used to retrieve Date from the user.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Date</returns>
         internal static DateOnly GetTargetDate(string message)
         {
             int maxTries = 3;
@@ -72,6 +91,11 @@
             return DateOnly.FromDateTime(DateTime.Today);
         }
 
+        /// <summary>
+        /// Used to retrieve task name from the user.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Task Name</returns>
         internal static string? GetTaskName(string message)
         {
             int maxTries = 3;
@@ -92,6 +116,10 @@
             return null;
         }
 
+        /// <summary>
+        /// Used to retrieve user id from the user.
+        /// </summary>
+        /// <returns>User id</returns>
         internal static string? GetUserId()
         {
             int maxTries = 3;
@@ -112,6 +140,11 @@
             return null;
         }
 
+        /// <summary>
+        /// Used to perform validation of the data by checking whether the data is both alphabet and number.
+        /// </summary>
+        /// <param name="data">Data which needs to be checked.</param>
+        /// <returns>Returns whether the data consists of both alphabet and number.</returns>
         private static bool IsAlphaNumeric(string data)
         {
             int hasDigit = 0;
@@ -130,6 +163,10 @@
             return hasDigit > 0 && hasCharacter > 0;
         }
 
+        /// <summary>
+        /// Used to retrieve user name from the user.
+        /// </summary>
+        /// <returns>User name</returns>
         internal static string? GetUserName()
         {
             int maxTries = 3;
@@ -150,6 +187,10 @@
             return null;
         }
 
+        /// <summary>
+        /// Used to retrieve password from the user.
+        /// </summary>
+        /// <returns>Password</returns>
         internal static string? GetUserPassword()
         {
             int maxTries = 3;
