@@ -12,6 +12,11 @@ namespace ToDoApplication.Services
             this._taskRepository = taskRepository;
         }
 
+        /// <summary>
+        /// Checks whether task already exists and passes to repository for addition of task.
+        /// </summary>
+        /// <param name="task">Task is the data of a particular task.</param>
+        /// <returns>Returns whether the task is added or not.</returns>
         internal bool AddTask(Tasks task)
         {
             if (!this._taskRepository.IsTaskAlreadyExists(task.OwnerId, task.TaskName))
@@ -22,6 +27,12 @@ namespace ToDoApplication.Services
             return false;
         }
 
+        /// <summary>
+        /// DeleteUserTask is used to check whether the data exists and deletes the data.
+        /// </summary>
+        /// <param name="userId">userId is the current user Id.</param>
+        /// <param name="taskName">TaskName is the name of the task which needs to be deleted.</param>
+        /// <returns>Returns whether the task is deleted or not.</returns>
         internal bool DeleteUserTask(string userId, string taskName)
         {
             if (!this._taskRepository.IsTaskAlreadyExists(userId, taskName))
@@ -36,6 +47,12 @@ namespace ToDoApplication.Services
             return this._taskRepository.DeleteTask(task);
         }
 
+        /// <summary>
+        /// UpdateTask method checks whether the data exists in repository and updated the repository.
+        /// </summary>
+        /// <param name="oldTaskName">oldTaskName is the name of the task which needs to be modified.</param>
+        /// <param name="task">Task is data of a particular task.</param>
+        /// <returns>Returns whether the data is updated or not.</returns>
         internal bool UpdateTask(string oldTaskName, Tasks task)
         {
             return this._taskRepository.UpdateUserTask(oldTaskName, task);
