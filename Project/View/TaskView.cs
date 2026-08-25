@@ -13,14 +13,26 @@ namespace ToDoApplication.View
             this._taskService = taskService;
             this._currentUser = new User();
         }
+
         public void AssignCurrentUser(User user)
         {
             this._currentUser = user;
         }
+
+        public void PrintCurrentUser()
+        {
+            string currentUser = $@"
+=============================
+User Name: {this._currentUser.UserName}
+=============================";
+            Console.WriteLine(currentUser);
+        }
+
         public void TaskMenu()
         {
             while (true)
             {
+                this.PrintCurrentUser();
                 string taskMenu = $@"
 =========TASK MENU=========
 [A]dd Task
@@ -34,6 +46,7 @@ Enter Choice: ";
                 switch (userChoice)
                 {
                     case ConsoleKey.A:
+                        Console.Clear();
                         this.AddTask();
                         break;
                     case ConsoleKey.E:
@@ -43,12 +56,14 @@ Enter Choice: ";
                         this.DeleteTask();
                         break;
                     case ConsoleKey.V:
+                        Console.Clear();
                         this.ViewTask();
                         break;
                     case ConsoleKey.R:
-                        this._currentUser = null;
+                        this._currentUser = new User();
                         ViewHelper.WriteColored($"\nReturning", ConsoleColor.Red);
                         Thread.Sleep(1300);
+                        Console.Clear();
                         return;
                     default:
                         break;
@@ -79,7 +94,7 @@ Enter Choice: ";
             {
                 return;
             }
-            if(this._taskService.AddTask(new Tasks(this._currentUser.UserId, taskName.Trim().ToLower(), description, targetDate, (RecurrenceType)recurrenceType)))
+            if (this._taskService.AddTask(new Tasks(this._currentUser.UserId, taskName, description, targetDate, (RecurrenceType)recurrenceType)))
             {
                 ViewHelper.WriteColored("Task is added", ConsoleColor.Green);
             }
@@ -101,7 +116,22 @@ Enter Choice: ";
 
         private void ViewTask()
         {
-            throw new NotImplementedException();
+            if (this._taskService.IsTasksExists(this._currentUser.UserId))
+            {
+                List<Tasks> tasks = this._taskService.GetAllUserTasks(this._currentUser.UserId);
+                foreach (Tasks task in tasks)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"\nName: {task.TaskName}\nDescription: {task.Description}\nTarget Date: {task.TargetDate}\nTask Recurrence: {task.TaskRecurrence}");
+                }
+            }
+            else
+            {
+                ViewHelper.WriteColored($"No tasks exists.", ConsoleColor.Red);
+            }
+            ViewHelper.WriteColored($"Enter any key to return", ConsoleColor.Yellow);
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

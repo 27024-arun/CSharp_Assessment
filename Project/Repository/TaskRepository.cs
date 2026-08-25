@@ -32,9 +32,23 @@ namespace ToDoApplication.Repository
             this.WriteAll();
         }
 
-        internal bool IsTaskExists(string id, string taskName)
+        internal bool IsTaskAlreadyExists(string id, string taskName)
         {
             return this._tasks.Any(task => task.OwnerId == id && task.TaskName == taskName);
+        }
+
+        internal bool IsUserTasksExists(string userId)
+        {
+            if (!File.Exists(this._filePath))
+            {
+                return false;
+            }
+            return this._tasks.Any(task => task.OwnerId == userId);
+        }
+
+        internal List<Tasks> GetUserTasks(string id)
+        {
+            return this._tasks.Where(task => task.OwnerId == id).ToList();
         }
 
         private void WriteAll()

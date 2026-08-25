@@ -45,7 +45,7 @@ namespace ToDoApplication.View
             {
                 Console.Write("Recurrence Type: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data) && int.TryParse(data, out recurrenceType) && recurrenceType > 0 && recurrenceType < typeLength)
+                if (!string.IsNullOrEmpty(data) && int.TryParse(data, out recurrenceType) && recurrenceType > 0 && recurrenceType <= typeLength)
                 {
                     return recurrenceType;
                 }

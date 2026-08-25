@@ -14,12 +14,22 @@ namespace ToDoApplication.Services
 
         internal bool AddTask(Tasks task)
         {
-            if (!this._taskRepository.IsTaskExists(task.OwnerId, task.TaskName))
+            if (!this._taskRepository.IsTaskAlreadyExists(task.OwnerId, task.TaskName))
             {
                 this._taskRepository.AddTask(task);
                 return true;
             }
             return false;
+        }
+
+        internal List<Tasks> GetAllUserTasks(string id)
+        {
+            return this._taskRepository.GetUserTasks(id);
+        }
+
+        internal bool IsTasksExists(string userId)
+        {
+            return this._taskRepository.IsUserTasksExists(userId);
         }
     }
 }

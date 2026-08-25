@@ -9,5 +9,7 @@
         Monthly = 3,
 
         Yearly = 4,
+
+        Never = 5,
     }
 }
