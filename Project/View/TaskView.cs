@@ -88,6 +88,9 @@ Enter Choice: ";
             }
         }
 
+        /// <summary>
+        /// AddTask is used to perform console level operation of Adding Task.
+        /// </summary>
         private void AddTask()
         {
             Console.WriteLine();
@@ -121,6 +124,9 @@ Enter Choice: ";
             }
         }
 
+        /// <summary>
+        /// EditTask method is used to retrieve new data for the existing task.
+        /// </summary>
         private void EditTask()
         {
             if (!this._taskService.IsTasksExists(this._currentUser.UserId))
@@ -173,6 +179,9 @@ Enter Choice: ";
             }
         }
 
+        /// <summary>
+        /// DeleteTask method is used to perform console level activities of Task Deletion.
+        /// </summary>
         private void DeleteTask()
         {
             if (!this._taskService.IsTasksExists(this._currentUser.UserId))
@@ -203,6 +212,9 @@ Enter Choice: ";
             Console.Clear();
         }
 
+        /// <summary>
+        /// ViewTask method is used to display the user tasks.
+        /// </summary>
         private void ViewTask()
         {
             if (this._taskService.IsTasksExists(this._currentUser.UserId))
@@ -223,6 +235,9 @@ Enter Choice: ";
             Console.Clear();
         }
 
+        /// <summary>
+        /// PrintTopTask is used to display top two tasks based on Target date.
+        /// </summary>
         private void PrintTopTask()
         {
             if (this._taskService.IsTasksExists(this._currentUser.UserId))
@@ -242,6 +257,9 @@ Enter Choice: ";
             }
         }
 
+        /// <summary>
+        /// FilterTask method is used to display the Tasks within in a specifier date.
+        /// </summary>
         private void FilterTask()
         {
             if (!this._taskService.IsTasksExists(this._currentUser.UserId))
