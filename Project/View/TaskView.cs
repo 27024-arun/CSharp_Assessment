@@ -26,10 +26,12 @@ namespace ToDoApplication.View
 User Name: {this._currentUser.UserName}
 =============================";
             Console.WriteLine(currentUser);
+
         }
 
         public void TaskMenu()
         {
+            this.PrintTopTask();
             while (true)
             {
                 this.PrintCurrentUser();
@@ -39,6 +41,7 @@ User Name: {this._currentUser.UserName}
 [E]dit Task
 [D]elete Task
 [V]iew Task
+[F]ilter Task
 [R]eturn
 Enter Choice: ";
                 Console.Write(taskMenu);
@@ -61,6 +64,10 @@ Enter Choice: ";
                         Console.Clear();
                         this.ViewTask();
                         break;
+                    case ConsoleKey.F:
+                        Console.Clear();
+                        this.FilterTask();
+                        break;
                     case ConsoleKey.R:
                         this._currentUser = new User();
                         ViewHelper.WriteColored($"\nReturning", ConsoleColor.Red);
@@ -77,22 +84,22 @@ Enter Choice: ";
         {
             Console.WriteLine();
             string? taskName = ViewHelper.GetTaskName("Task Name");
-            if(taskName is null)
+            if (taskName is null)
             {
                 return;
             }
             string? description = ViewHelper.GetDescription();
-            if(description is null)
+            if (description is null)
             {
                 return;
             }
-            DateOnly targetDate = ViewHelper.GetTargetDate();
-            foreach(var type in Enum.GetValues(typeof(RecurrenceType)))
+            DateOnly targetDate = ViewHelper.GetTargetDate("Date");
+            foreach (var type in Enum.GetValues(typeof(RecurrenceType)))
             {
                 Console.WriteLine($"{(int)type}. {type}");
             }
             int recurrenceType = ViewHelper.GetRecurrenceType(Enum.GetValues(typeof(RecurrenceType)).Length);
-            if(recurrenceType == 0)
+            if (recurrenceType == 0)
             {
                 return;
             }
@@ -121,7 +128,7 @@ Enter Choice: ";
             {
                 return;
             }
-            if(!this._taskService.IsTaskAlreadyExists(this._currentUser.UserId, oldTaskName))
+            if (!this._taskService.IsTaskAlreadyExists(this._currentUser.UserId, oldTaskName))
             {
                 ViewHelper.WriteColored("Task doesn't exist", ConsoleColor.Red);
                 return;
@@ -137,7 +144,7 @@ Enter Choice: ";
             {
                 return;
             }
-            DateOnly targetDate = ViewHelper.GetTargetDate();
+            DateOnly targetDate = ViewHelper.GetTargetDate("Date");
             foreach (var type in Enum.GetValues(typeof(RecurrenceType)))
             {
                 Console.WriteLine($"{(int)type}. {type}");
@@ -175,7 +182,7 @@ Enter Choice: ";
                 return;
             }
 
-            if(this._taskService.DeleteUserTask(this._currentUser.UserId, taskName))
+            if (this._taskService.DeleteUserTask(this._currentUser.UserId, taskName))
             {
                 ViewHelper.WriteColored($"Task is deleted", ConsoleColor.Green);
             }
@@ -202,6 +209,48 @@ Enter Choice: ";
             else
             {
                 ViewHelper.WriteColored($"No tasks exists.", ConsoleColor.Red);
+            }
+            ViewHelper.WriteColored($"Enter any key to return", ConsoleColor.Yellow);
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        private void PrintTopTask()
+        {
+            if (this._taskService.IsTasksExists(this._currentUser.UserId))
+            {
+                int topTaskNeeded = 2;
+                List<Tasks> tasks = this._taskService.GetTopTasks(this._currentUser.UserId);
+                ViewHelper.WriteColored($"Top Tasks of the User", ConsoleColor.Yellow);
+                foreach (Tasks task in tasks)
+                {
+                    if (topTaskNeeded == 0)
+                    {
+                        return;
+                    }
+                    topTaskNeeded--;
+                    Console.WriteLine($"\nName: {task.TaskName}     Target Date: {task.TargetDate}");
+                }
+            }
+        }
+
+        private void FilterTask()
+        {
+            if (!this._taskService.IsTasksExists(this._currentUser.UserId))
+            {
+                ViewHelper.WriteColored($"No tasks exists.", ConsoleColor.Red);
+                ViewHelper.WriteColored($"Enter any key to return", ConsoleColor.Yellow);
+                Console.ReadKey();
+                Console.Clear();
+                return;
+            }
+            DateOnly filterDate = ViewHelper.GetTargetDate("Filter Date");
+            List<Tasks> tasks = this._taskService.GetTasksUptoTargetDate(this._currentUser.UserId, filterDate);
+            ViewHelper.WriteColored("\nToDo before the entered date are listed below", ConsoleColor.Yellow);
+            foreach (Tasks task in tasks)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"\nName: {task.TaskName}\nDescription: {task.Description}\nTarget Date: {task.TargetDate}\nTask Recurrence: {task.TaskRecurrence}");
             }
             ViewHelper.WriteColored($"Enter any key to return", ConsoleColor.Yellow);
             Console.ReadKey();

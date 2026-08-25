@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ToDoApplication.Models;
+﻿using ToDoApplication.Models;
 using ToDoApplication.Repository;
 
 namespace ToDoApplication.Services
@@ -55,6 +54,18 @@ namespace ToDoApplication.Services
         internal bool IsTaskAlreadyExists(string userId, string taskName)
         {
             return this._taskRepository.IsTaskAlreadyExists(userId, taskName);
+        }
+
+        internal List<Tasks> GetTopTasks(string id)
+        {
+            List<Tasks> tasks = this._taskRepository.GetUserTasks(id);
+            return tasks.OrderBy(task => task.TargetDate).ToList();
+        }
+
+        internal List<Tasks> GetTasksUptoTargetDate(string id, DateOnly filterDate)
+        {
+            List<Tasks> tasks = this._taskRepository.GetUserTasks(id);
+            return tasks.OrderBy(task => task.TargetDate).Where(task => task.TargetDate < filterDate).ToList();
         }
     }
 }

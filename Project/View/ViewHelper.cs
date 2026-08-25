@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ToDoApplication.View
+﻿namespace ToDoApplication.View
 {
     internal class ViewHelper
     {
@@ -57,15 +50,15 @@ namespace ToDoApplication.View
             return 0;
         }
 
-        internal static DateOnly GetTargetDate()
+        internal static DateOnly GetTargetDate(string message)
         {
             int tries = 3;
             string? input;
             for (int i = 1; i <= tries; i++)
             {
-                Console.Write($"Date (DD/MM/YYYY): ");
+                Console.Write($"{message} (DD/MM/YYYY): ");
                 input = Console.ReadLine();
-                if (DateOnly.TryParse(input, out DateOnly date) && date > DateOnly.FromDateTime(DateTime.Now))
+                if (DateOnly.TryParse(input, out DateOnly date) && date >= DateOnly.FromDateTime(DateTime.Now))
                 {
                     return date;
                 }
@@ -76,7 +69,7 @@ namespace ToDoApplication.View
             }
 
             WriteColored("Entered date is not valid, today's date is set as default", ConsoleColor.Yellow);
-            return DateOnly.FromDateTime(DateTime.Now);
+            return DateOnly.FromDateTime(DateTime.Today);
         }
 
         internal static string? GetTaskName(string message)
@@ -105,7 +98,7 @@ namespace ToDoApplication.View
             string? data;
             for(int i = 0; i < maxTries; i++)
             {
-                Console.Write("User Id: ");
+                Console.Write("User Id [Alphanumeric]: ");
                 data = Console.ReadLine();
                 if(!string.IsNullOrEmpty(data))
                 {
@@ -127,7 +120,7 @@ namespace ToDoApplication.View
             {
                 Console.Write("User Name: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data))
+                if (!string.IsNullOrEmpty(data) && data.Length > 3)
                 {
                     return data;
                 }
