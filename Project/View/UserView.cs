@@ -14,7 +14,7 @@ namespace ToDoApplication.View
         internal void SignUp()
         {
             Console.Clear();
-            Console.WriteLine("=========SINGUP MENU=========");
+            Console.WriteLine("=========SIGNUP MENU=========");
             string? id = ViewHelper.GetUserId();
             if(id is null)
             {
@@ -32,7 +32,11 @@ namespace ToDoApplication.View
             }
             if(this._userServices.AddUser(id, name, password))
             {
-                ViewHelper.WriteColored($"User account created", ConsoleColor.Green);
+                ViewHelper.WriteColored($"User account created.", ConsoleColor.Green);
+            }
+            else
+            {
+                ViewHelper.WriteColored($"User already exists.", ConsoleColor.Red);
             }
         }
 

@@ -1,13 +1,19 @@
 ﻿namespace ToDoApplication.Models
 {
+    /// <summary>
+    /// Users class consists of the properties of User data.
+    /// </summary>
     internal class User
     {
+        /// <summary>
+        /// Constructor for instantiation of the class User.
+        /// </summary>
         public User()
         {
         }
 
         /// <summary>
-        /// Constructor for instantiation of the class User
+        /// Constructor for instantiation of the class User.
         /// </summary>
         /// <param name="UserId">UserId is the unique id of the user.</param>
         /// <param name="UserName">UserName is the name of the user.</param>

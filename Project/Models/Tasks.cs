@@ -1,5 +1,8 @@
 ﻿namespace ToDoApplication.Models
 {
+    /// <summary>
+    /// Tasks class consists of the properties of To-Do tasks.
+    /// </summary>
     internal class Tasks
     {
 

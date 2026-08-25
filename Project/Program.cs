@@ -19,28 +19,36 @@ namespace ToDoApplication
 
             while (true)
             {
-                string mainMenu = $@"
+                try
+                {
+                    string mainMenu = $@"
 =========MAIN MENU=========
 [S]ignUp
 [L]ogIn
 [E]xit
 Enter Choice: ";
-                Console.Write(mainMenu);
-                ConsoleKey userChoice = Console.ReadKey().Key;
-                switch (userChoice)
+                    Console.Write(mainMenu);
+                    ConsoleKey userChoice = Console.ReadKey().Key;
+                    switch (userChoice)
+                    {
+                        case ConsoleKey.S:
+                            userView.SignUp();
+                            break;
+                        case ConsoleKey.L:
+                            userView.LogIn();
+                            break;
+                        case ConsoleKey.E:
+                            ViewHelper.WriteColored($"\nExiting", ConsoleColor.Red);
+                            Thread.Sleep(1300);
+                            return;
+                        default:
+                            Console.Clear();
+                            break;
+                    }
+                }
+                catch (Exception e)
                 {
-                    case ConsoleKey.S:
-                        userView.SignUp();
-                        break;
-                    case ConsoleKey.L:
-                        userView.LogIn();
-                        break;
-                    case ConsoleKey.E:
-                        ViewHelper.WriteColored($"\nExiting",ConsoleColor.Red);
-                        Thread.Sleep(1300);
-                        return;
-                    default:
-                        break;
+                    ViewHelper.WriteColored($"\n{e.Message}", ConsoleColor.Red);
                 }
             }
         }

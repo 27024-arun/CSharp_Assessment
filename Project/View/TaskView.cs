@@ -41,7 +41,7 @@ User Name: {this._currentUser.UserName}
 [E]dit Task
 [D]elete Task
 [V]iew Task
-[F]ilter Task
+[C]alendar of Tasks
 [R]eturn
 Enter Choice: ";
                 Console.Write(taskMenu);
@@ -64,7 +64,7 @@ Enter Choice: ";
                         Console.Clear();
                         this.ViewTask();
                         break;
-                    case ConsoleKey.F:
+                    case ConsoleKey.C:
                         Console.Clear();
                         this.FilterTask();
                         break;
@@ -75,6 +75,7 @@ Enter Choice: ";
                         Console.Clear();
                         return;
                     default:
+                        Console.Clear();
                         break;
                 }
             }

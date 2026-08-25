@@ -17,7 +17,7 @@
             {
                 Console.Write("Description: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data) && data.Length > 10)
+                if (!string.IsNullOrWhiteSpace(data) && data.Length > 10)
                 {
                     return data;
                 }
@@ -38,7 +38,7 @@
             {
                 Console.Write("Recurrence Type: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data) && int.TryParse(data, out recurrenceType) && recurrenceType > 0 && recurrenceType <= typeLength)
+                if (!string.IsNullOrWhiteSpace(data) && int.TryParse(data, out recurrenceType) && recurrenceType > 0 && recurrenceType <= typeLength)
                 {
                     return recurrenceType;
                 }
@@ -52,9 +52,9 @@
 
         internal static DateOnly GetTargetDate(string message)
         {
-            int tries = 3;
+            int maxTries = 3;
             string? input;
-            for (int i = 1; i <= tries; i++)
+            for (int i = 0; i < maxTries; i++)
             {
                 Console.Write($"{message} (DD/MM/YYYY): ");
                 input = Console.ReadLine();
@@ -64,7 +64,7 @@
                 }
                 else
                 {
-                    WriteColored($"Data entered is invalid\n{3 - i} Tries left", ConsoleColor.Red);
+                    WriteColored($"Entered date is invalid(DD/MM/YYYY)\n{maxTries - i - 1} Tries left", ConsoleColor.Red);
                 }
             }
 
@@ -80,7 +80,7 @@
             {
                 Console.Write($"{message}: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data) && data.Length > 5)
+                if (!string.IsNullOrWhiteSpace(data) && data.Length > 5)
                 {
                     return data;
                 }
@@ -96,11 +96,11 @@
         {
             int maxTries = 3;
             string? data;
-            for(int i = 0; i < maxTries; i++)
+            for (int i = 0; i < maxTries; i++)
             {
-                Console.Write("User Id [Alphanumeric]: ");
+                Console.Write("User Id [AlphaNumeric]: ");
                 data = Console.ReadLine();
-                if(!string.IsNullOrEmpty(data))
+                if (!string.IsNullOrWhiteSpace(data) && data.Length > 4 && IsAlphaNumeric(data))
                 {
                     return data;
                 }
@@ -112,6 +112,24 @@
             return null;
         }
 
+        private static bool IsAlphaNumeric(string data)
+        {
+            int hasDigit = 0;
+            int hasCharacter = 0;
+            foreach (char c in data)
+            {
+                if (char.IsDigit(c))
+                {
+                    hasDigit += 1;
+                }
+                if(char.IsLetter(c))
+                {
+                    hasCharacter += 1;
+                }
+            }
+            return hasDigit > 0 && hasCharacter > 0;
+        }
+
         internal static string? GetUserName()
         {
             int maxTries = 3;
@@ -120,7 +138,7 @@
             {
                 Console.Write("User Name: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data) && data.Length > 3)
+                if (!string.IsNullOrWhiteSpace(data) && data.Length > 3)
                 {
                     return data;
                 }
@@ -138,9 +156,9 @@
             string? data;
             for (int i = 0; i < maxTries; i++)
             {
-                Console.Write("Password: ");
+                Console.Write("Password[AlphaNumeric]: ");
                 data = Console.ReadLine();
-                if (!string.IsNullOrEmpty(data) && data.Length > 6)
+                if (!string.IsNullOrWhiteSpace(data) && data.Length > 6 && IsAlphaNumeric(data))
                 {
                     return data;
                 }
