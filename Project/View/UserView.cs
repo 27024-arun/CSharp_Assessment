@@ -13,6 +13,7 @@ namespace ToDoApplication.View
         }
         internal void SignUp()
         {
+            Console.Clear();
             Console.WriteLine("=========SINGUP MENU=========");
             string? id = ViewHelper.GetUserId();
             if(id is null)
@@ -37,6 +38,7 @@ namespace ToDoApplication.View
 
         internal void LogIn()
         {
+            Console.Clear();
             Console.WriteLine("=========LOGIN MENU=========");
             string? id = ViewHelper.GetUserId();
             if (id is null)
@@ -54,6 +56,7 @@ namespace ToDoApplication.View
                 var user = this._userServices.GetCurrentUser(id, password);
                 if(user != null)
                 {
+                    this._taskView.AssignCurrentUser(user);
                     Console.Clear();
                     this._taskView.TaskMenu();
                 }

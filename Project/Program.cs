@@ -36,6 +36,8 @@ Enter Choice: ";
                         userView.LogIn();
                         break;
                     case ConsoleKey.E:
+                        ViewHelper.WriteColored($"\nExiting",ConsoleColor.Red);
+                        Thread.Sleep(1300);
                         return;
                     default:
                         break;
