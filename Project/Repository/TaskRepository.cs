@@ -32,6 +32,28 @@ namespace ToDoApplication.Repository
             this.WriteAll();
         }
 
+        internal bool DeleteTask(Tasks task)
+        {
+            this._tasks.Remove(task);
+            this.WriteAll();
+            return true;
+        }
+
+        internal bool UpdateUserTask(string oldTaskName, Tasks newTaskData)
+        {
+            Tasks? existingTask = this.GetSpecificTask(newTaskData.OwnerId, oldTaskName);
+            if (existingTask is null)
+            {
+                return false;
+            }
+            existingTask.TaskName = newTaskData.TaskName;
+            existingTask.Description = newTaskData.Description;
+            existingTask.TargetDate = newTaskData.TargetDate;
+            existingTask.TaskRecurrence = newTaskData.TaskRecurrence;
+            this.WriteAll();
+            return true;
+        }
+
         internal bool IsTaskAlreadyExists(string id, string taskName)
         {
             return this._tasks.Any(task => task.OwnerId == id && task.TaskName == taskName);
@@ -49,6 +71,11 @@ namespace ToDoApplication.Repository
         internal List<Tasks> GetUserTasks(string id)
         {
             return this._tasks.Where(task => task.OwnerId == id).ToList();
+        }
+
+        internal Tasks? GetSpecificTask(string userId, string taskName)
+        {
+            return this._tasks.FirstOrDefault(task => task.OwnerId == userId && task.TaskName == taskName);
         }
 
         private void WriteAll()

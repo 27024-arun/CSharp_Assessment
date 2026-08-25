@@ -1,5 +1,6 @@
-﻿using ToDoApplication.Repository;
+﻿using System.Threading.Tasks;
 using ToDoApplication.Models;
+using ToDoApplication.Repository;
 
 namespace ToDoApplication.Services
 {
@@ -22,6 +23,25 @@ namespace ToDoApplication.Services
             return false;
         }
 
+        internal bool DeleteUserTask(string userId, string taskName)
+        {
+            if (!this._taskRepository.IsTaskAlreadyExists(userId, taskName))
+            {
+                return false;
+            }
+            Tasks? task = this._taskRepository.GetSpecificTask(userId, taskName);
+            if (task is null)
+            {
+                return false;
+            }
+            return this._taskRepository.DeleteTask(task);
+        }
+
+        internal bool UpdateTask(string oldTaskName, Tasks task)
+        {
+            return this._taskRepository.UpdateUserTask(oldTaskName, task);
+        }
+
         internal List<Tasks> GetAllUserTasks(string id)
         {
             return this._taskRepository.GetUserTasks(id);
@@ -30,6 +50,11 @@ namespace ToDoApplication.Services
         internal bool IsTasksExists(string userId)
         {
             return this._taskRepository.IsUserTasksExists(userId);
+        }
+
+        internal bool IsTaskAlreadyExists(string userId, string taskName)
+        {
+            return this._taskRepository.IsTaskAlreadyExists(userId, taskName);
         }
     }
 }

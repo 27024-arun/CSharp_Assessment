@@ -79,13 +79,13 @@ namespace ToDoApplication.View
             return DateOnly.FromDateTime(DateTime.Now);
         }
 
-        internal static string? GetTaskName()
+        internal static string? GetTaskName(string message)
         {
             int maxTries = 3;
             string? data;
             for (int i = 0; i < maxTries; i++)
             {
-                Console.Write("Task Name: ");
+                Console.Write($"{message}: ");
                 data = Console.ReadLine();
                 if (!string.IsNullOrEmpty(data) && data.Length > 5)
                 {
