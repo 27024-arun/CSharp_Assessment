@@ -22,7 +22,7 @@ namespace ToDoApplication.View
             string? data;
             for(int i = 0; i < maxTries; i++)
             {
-                Console.WriteLine("User Id: ");
+                Console.Write("User Id: ");
                 data = Console.ReadLine();
                 if(!string.IsNullOrEmpty(data))
                 {
@@ -42,7 +42,7 @@ namespace ToDoApplication.View
             string? data;
             for (int i = 0; i < maxTries; i++)
             {
-                Console.WriteLine("User Name: ");
+                Console.Write("User Name: ");
                 data = Console.ReadLine();
                 if (!string.IsNullOrEmpty(data))
                 {
@@ -62,7 +62,7 @@ namespace ToDoApplication.View
             string? data;
             for (int i = 0; i < maxTries; i++)
             {
-                Console.WriteLine("Password: ");
+                Console.Write("Password: ");
                 data = Console.ReadLine();
                 if (!string.IsNullOrEmpty(data))
                 {

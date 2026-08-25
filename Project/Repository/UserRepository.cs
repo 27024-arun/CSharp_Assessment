@@ -44,5 +44,10 @@ namespace ToDoApplication.Repository
             string fileData = File.ReadAllText(this._filePath);
             return JsonSerializer.Deserialize<List<User>>(fileData, this._options) ?? new List<User>();
         }
+
+        internal User? GetUser(string id, string password)
+        {
+            return this._users.FirstOrDefault(user => user.UserId == id && user.Password == password);
+        }
     }
 }

@@ -2,6 +2,10 @@
 {
     internal class User
     {
+        public User()
+        {
+        }
+
         /// <summary>
         /// Constructor for instantiation of the class User
         /// </summary>

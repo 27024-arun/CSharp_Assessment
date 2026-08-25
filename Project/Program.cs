@@ -15,7 +15,7 @@ namespace ToDoApplication
             UserServices userServices = new UserServices(userRepository);
 
             TaskView taskView = new TaskView(taskService);
-            UserView userView = new UserView(userServices);
+            UserView userView = new UserView(userServices, taskView);
 
             while (true)
             {

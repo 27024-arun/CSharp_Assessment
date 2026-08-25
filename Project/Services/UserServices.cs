@@ -23,6 +23,11 @@ namespace ToDoApplication.Services
             return false;
         }
 
+        internal User? GetCurrentUser(string id, string password)
+        {
+            return this._userRepository.GetUser(id, password);
+        }
+
         internal bool UserExists(string id, string password)
         {
             return this._userRepository.IsUserAlreadyExists(id, password);

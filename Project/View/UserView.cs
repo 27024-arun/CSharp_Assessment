@@ -5,10 +5,11 @@ namespace ToDoApplication.View
     internal class UserView
     {
         private UserServices _userServices;
-
-        public UserView(UserServices userServices)
+        private TaskView _taskView;
+        public UserView(UserServices userServices, TaskView taskView)
         {
             this._userServices = userServices;
+            this._taskView = taskView;
         }
         internal void SignUp()
         {
@@ -50,6 +51,16 @@ namespace ToDoApplication.View
             if(this._userServices.UserExists(id, password))
             {
                 ViewHelper.WriteColored("Logged In", ConsoleColor.Green);
+                var user = this._userServices.GetCurrentUser(id, password);
+                if(user != null)
+                {
+                    Console.Clear();
+                    this._taskView.TaskMenu();
+                }
+            }
+            else
+            {
+                ViewHelper.WriteColored($"User data not valid.", ConsoleColor.Red);
             }
         }
     }
