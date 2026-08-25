@@ -63,7 +63,9 @@ namespace ToDoApplication.View
             }
             else
             {
-                ViewHelper.WriteColored($"User data not valid.", ConsoleColor.Red);
+                ViewHelper.WriteColored($"User data not valid\nReturning to Main menu.", ConsoleColor.Red);
+                Thread.Sleep(1300);
+                Console.Clear();
             }
         }
     }

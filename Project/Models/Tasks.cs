@@ -17,7 +17,7 @@ namespace ToDoApplication.Models
         /// <param name="Description">Description is the detail of implementation of the task.</param>
         /// <param name="TargetDate">TargetDate is the finishing time of the task.</param>
         /// <param name="TaskRecurrence">TaskRecurrence is the time for which the date should be occur again.</param>
-        public Tasks(string OwnerId, string TaskName, string Description, DateOnly TargetDate, string TaskRecurrence)
+        public Tasks(string OwnerId, string TaskName, string Description, DateOnly TargetDate, RecurrenceType TaskRecurrence)
         {
             this.OwnerId = OwnerId;
             this.TaskName = TaskName;
@@ -49,6 +49,6 @@ namespace ToDoApplication.Models
         /// <summary>
         /// TaskRecurrence is the time for which the date should be occur again.
         /// </summary>
-        public string TaskRecurrence {  get; set; }
+        public RecurrenceType TaskRecurrence {  get; set; }
     }
 }

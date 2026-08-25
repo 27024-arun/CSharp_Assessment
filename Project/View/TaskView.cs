@@ -6,11 +6,11 @@ namespace ToDoApplication.View
     internal class TaskView
     {
         private User _currentUser;
-        private TaskSevices taskService;
+        private TaskSevices _taskService;
 
         public TaskView(TaskSevices taskService)
         {
-            this.taskService = taskService;
+            this._taskService = taskService;
             this._currentUser = new User();
         }
         public void AssignCurrentUser(User user)
@@ -58,7 +58,35 @@ Enter Choice: ";
 
         private void AddTask()
         {
-            
+            Console.WriteLine();
+            string? taskName = ViewHelper.GetTaskName();
+            if(taskName is null)
+            {
+                return;
+            }
+            string? description = ViewHelper.GetDescription();
+            if(description is null)
+            {
+                return;
+            }
+            DateOnly targetDate = ViewHelper.GetTargetDate();
+            foreach(var type in Enum.GetValues(typeof(RecurrenceType)))
+            {
+                Console.WriteLine($"{(int)type}. {type}");
+            }
+            int recurrenceType = ViewHelper.GetRecurrenceType(Enum.GetValues(typeof(RecurrenceType)).Length);
+            if(recurrenceType == 0)
+            {
+                return;
+            }
+            if(this._taskService.AddTask(new Tasks(this._currentUser.UserId, taskName.Trim().ToLower(), description, targetDate, (RecurrenceType)recurrenceType)))
+            {
+                ViewHelper.WriteColored("Task is added", ConsoleColor.Green);
+            }
+            else
+            {
+                ViewHelper.WriteColored("Task already exists", ConsoleColor.Red);
+            }
         }
 
         private void EditTask()

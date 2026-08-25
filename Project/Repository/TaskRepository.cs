@@ -26,6 +26,17 @@ namespace ToDoApplication.Repository
             this._tasks = this.LoadAll();
         }
 
+        internal void AddTask(Tasks task)
+        {
+            this._tasks.Add(task);
+            this.WriteAll();
+        }
+
+        internal bool IsTaskExists(string id, string taskName)
+        {
+            return this._tasks.Any(task => task.OwnerId == id && task.TaskName == taskName);
+        }
+
         private void WriteAll()
         {
             string fileData = JsonSerializer.Serialize(this._tasks, this._options);
